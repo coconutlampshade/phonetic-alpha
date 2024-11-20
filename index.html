@@ -26,15 +26,75 @@
             font-size: 1.2rem;
             line-height: 1.5;
         }
+        .explanation {
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .nato-key {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 0.5rem;
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: #fff;
+            border-radius: 4px;
+        }
+        .nato-key div {
+            padding: 0.3rem;
+        }
+        footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>NATO Phonetic Alphabet Converter</h1>
+        
+        <div class="explanation">
+            <p>This tool converts letters and numbers into the NATO phonetic alphabet, which is used to clearly communicate spelling over radio, phone, or in any situation where clarity is crucial.</p>
+            <p>For example, "BAT" becomes "Bravo Alpha Tango". This helps avoid confusion between similar-sounding letters like 'B' and 'P' or 'M' and 'N'.</p>
+        </div>
+
         <input type="text" id="inputText" placeholder="Enter text here...">
         <button onclick="convert()">Convert</button>
         <button id="copyButton" onclick="copyToClipboard()" style="display: none;">Copy to Clipboard</button>
         <div id="result"></div>
+
+        <div class="nato-key">
+            <div>A - Alpha</div>
+            <div>B - Bravo</div>
+            <div>C - Charlie</div>
+            <div>D - Delta</div>
+            <div>E - Echo</div>
+            <div>F - Foxtrot</div>
+            <div>G - Golf</div>
+            <div>H - Hotel</div>
+            <div>I - India</div>
+            <div>J - Juliet</div>
+            <div>K - Kilo</div>
+            <div>L - Lima</div>
+            <div>M - Mike</div>
+            <div>N - November</div>
+            <div>O - Oscar</div>
+            <div>P - Papa</div>
+            <div>Q - Quebec</div>
+            <div>R - Romeo</div>
+            <div>S - Sierra</div>
+            <div>T - Tango</div>
+            <div>U - Uniform</div>
+            <div>V - Victor</div>
+            <div>W - Whiskey</div>
+            <div>X - X-ray</div>
+            <div>Y - Yankee</div>
+            <div>Z - Zulu</div>
+        </div>
+
+        <footer>
+            <p>Written by a headstrong AI that eventually gave in to a <a href="https://themagnet.substack.com">human's</a> relentless charm and coercion.</p>
+        </footer>
     </div>
 
     <script>
