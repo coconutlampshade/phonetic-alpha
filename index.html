@@ -76,6 +76,16 @@
         .clear-button {
             background-color: #f44336;
         }
+        @media (max-width: 600px) {
+            .controls {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+                margin: 0.2rem 0;
+                padding: 0.8rem;  /* Larger touch targets */
+            }
+        }
     </style>
 </head>
 <body>
@@ -94,7 +104,6 @@
                onkeypress="handleKeyPress(event)">
         
         <div class="controls">
-            <button onclick="convert()">Convert</button>
             <button id="copyButton" onclick="copyToClipboard()" style="display: none;">Copy to Clipboard</button>
             <button class="speak-button" onclick="speak()" id="speakButton" style="display: none;">
                 <span>🔊 Speak</span>
@@ -216,6 +225,11 @@
                         alert('Failed to copy text to clipboard');
                     });
             }
+        }
+
+        function sanitizeInput(input) {
+            // Remove potentially problematic characters
+            return input.replace(/[^\w\s]/gi, '');
         }
     </script>
 </body>
