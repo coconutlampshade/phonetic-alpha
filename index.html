@@ -47,6 +47,35 @@
             font-size: 0.9rem;
             color: #666;
         }
+        @keyframes fadeOut {
+            from { background-color: #4CAF50; }
+            to { background-color: original; }
+        }
+        .copied {
+            animation: fadeOut 1s;
+        }
+        .result-item {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            margin: 0.2rem;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+        .original-char {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .controls {
+            margin: 1rem 0;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .speak-button {
+            background-color: #2196F3;
+        }
+        .clear-button {
+            background-color: #f44336;
+        }
     </style>
 </head>
 <body>
@@ -58,9 +87,21 @@
             <p>For example, "BAT" becomes "Bravo Alpha Tango". This helps avoid confusion between similar-sounding letters like 'B' and 'P' or 'M' and 'N'.</p>
         </div>
 
-        <input type="text" id="inputText" placeholder="Enter text here...">
-        <button onclick="convert()">Convert</button>
-        <button id="copyButton" onclick="copyToClipboard()" style="display: none;">Copy to Clipboard</button>
+        <input type="text" 
+               id="inputText" 
+               placeholder="Enter text here..." 
+               oninput="convert()"
+               onkeypress="handleKeyPress(event)">
+        
+        <div class="controls">
+            <button onclick="convert()">Convert</button>
+            <button id="copyButton" onclick="copyToClipboard()" style="display: none;">Copy to Clipboard</button>
+            <button class="speak-button" onclick="speak()" id="speakButton" style="display: none;">
+                <span>🔊 Speak</span>
+            </button>
+            <button class="clear-button" onclick="clearInput()">Clear</button>
+        </div>
+
         <div id="result"></div>
 
         <div class="nato-key">
@@ -115,7 +156,15 @@
             const input = document.getElementById('inputText').value.toUpperCase();
             const result = document.getElementById('result');
             const copyButton = document.getElementById('copyButton');
+            const speakButton = document.getElementById('speakButton');
             let output = [];
+
+            if (!input) {
+                result.textContent = '';
+                copyButton.style.display = 'none';
+                speakButton.style.display = 'none';
+                return;
+            }
 
             for (let char of input) {
                 if (natoAlphabet[char]) {
@@ -129,6 +178,24 @@
 
             result.textContent = output.join(' ');
             copyButton.style.display = 'inline-block';
+            speakButton.style.display = 'inline-block';
+        }
+
+        function speak() {
+            const text = document.getElementById('result').textContent;
+            const utterance = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function clearInput() {
+            document.getElementById('inputText').value = '';
+            convert();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                convert();
+            }
         }
 
         function copyToClipboard() {
